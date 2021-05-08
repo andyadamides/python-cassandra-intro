@@ -3,6 +3,7 @@ from cassandra.auth import PlainTextAuthProvider
 from datetime import datetime, timedelta
 import random
 import numpy as np
+import os
 
 
 def main():
@@ -14,9 +15,9 @@ def main():
 def getDBSession():
     """Create and get a Cassandra session"""
     cloud_config= {
-            'secure_connect_bundle': '<path_to_zip_downloaded_from_setup_step>'
+            'secure_connect_bundle': os.environ.get('ASTRA_PATH_TO_SECURE_BUNDLE')
     }
-    auth_provider = PlainTextAuthProvider('<client_id_from_setup_step>', '<client_secret_from_setup_step>')
+    auth_provider = PlainTextAuthProvider(os.environ.get('ASTRA_CLIENT_ID'), os.environ.get('ASTRA_CLIENT_SECRET'))
     cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
     session = cluster.connect()
     return session

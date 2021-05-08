@@ -8,3 +8,9 @@ CREATE TABLE cassandra_pythondemo.demo_readings (
      value double,
      PRIMARY KEY (device_id, timeseries_id, value_ts)
 );
+
+
+CREATE TABLE cassandra_pythondemo.demo_books (
+     book text primary key, 
+     author text, 
+     genre list<text>);
